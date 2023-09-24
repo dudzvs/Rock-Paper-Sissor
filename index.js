@@ -1,60 +1,84 @@
-let playerScore = 0;
+const btnStart = document.querySelector(".start");
+const btnReset = document.querySelector('.playAgain');
+const playersBtns = document.querySelector('.options');
+const scoreBoard = document.querySelector('.score');
+const userPoints = document.querySelector('.userScore')
+const computerPoints = document.querySelector('.computerScore')
+let mainText = document.querySelector('.historyText')
+let countRound = document.querySelector('.rounds')
+
+
+btnStart.addEventListener('click', () => {
+  btnStart.classList.toggle('hide');
+  playersBtns.classList.toggle('hide');
+  scoreBoard.classList.toggle('hide');
+  btnReset.classList.toggle('hide');
+
+  mainText.textContent = "Only you can save us, you must won 5 times"
+})
+
+btnReset.addEventListener('click', () => {
+  btnStart.classList.toggle('hide');
+  playersBtns.classList.toggle('hide');
+  scoreBoard.classList.toggle('hide');
+  btnReset.classList.toggle('hide');
+  window.location.reload()
+  mainText.innerHTML = 'The year is 2069 and only one thing can save the word...<br>You, armed with just your hands<br> you are the savior of humanity'
+})
+
+let userScore = 0;
 let computerScore = 0;
+let round = 0;
+const choices = ["Rock", "Paper", "Sissor"];
 
-// pick a random choice for the computer
-
-function computerChoice() {
-  let choices = ["Rock", "Paper", "Sissor"]
-
-  return choices[Math.floor(Math.random() * choices.length)]
+function getComputerMove() {
+  return choices[Math.floor(Math.random() * choices.length)];
 }
 
-// play one round of the game Rock-Paper-Sissor
-
-function playRound(playerSelection, computerSelection) {
-  let result = ""
-  computerSelection = computerChoice()
-
-  if((playerSelection == "Rock" && computerSelection == "Sissor") || 
-     (playerSelection == "Paper" && computerSelection == "Rock") || 
-     (playerSelection == "Sissor" && computerSelection == "Paper")) {
-      playerScore++;
-      result = `Ohhh yeahh you get it my man\n ${playerSelection} beats ${computerSelection}\n player score: ${playerScore}\n computer score: ${computerScore}`
-     }
-     else if(computerSelection == playerSelection) {
-      result = "It's a tie game my man, try over"
-     }
-     else if(playerSelection === "") {
-      result = "wrong"
-     }
-     else {
-      computerScore++;
-      result = `Ohhh FUCK\n ${computerSelection} beats ${playerSelection}\n player score: ${playerScore}\n computer score: ${computerScore}`
-     }
-     console.log(result)
-     return result
-}
-
-// function for the player to play 5 times, and see who won
-
-function game(playerSelect) {
-
-  for(let i = 0; i < 5; i++) {   
-    playerSelect = prompt("Rock, Paper or Sissor ?")
-    playerSelect = capitalize(playerSelect)
-    playRound(playerSelect)
-  }
+function playRound(playerMove, computerMove) {
   
-  if(playerScore > computerScore) {
-    console.log("Congrats you won!!")
-  }else if (computerScore > playerScore) {
-    console.log("FUCKKKKKKK")
-  }else {
-    console.log("Tie game")
-  }
+  if((playerMove == "Rock" && computerMove == "Sissor") ||
+  (playerMove == "Paper" && computerMove == "Rock") ||
+  (playerMove == "Sissor" && computerMove == "Paper")) {
+    userScore++
+    userPoints.textContent = userScore
 
+    round++
+    countRound.textContent = round
+    mainText.textContent = `You win: ${playerMove} beats ${computerMove}`
+  }else if (playerMove == computerMove){
+    mainText.textContent = `Tie game!`
+  }else {
+    computerScore++
+    computerPoints.textContent = computerScore
+
+    round++
+    countRound.textContent = round
+    mainText.textContent = `You loose: ${computerMove} beats ${playerMove}`
+  }
 }
-function capitalize(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+
+const rpsButtons = document.querySelectorAll('svg')
+rpsButtons.forEach(button => {
+  button.addEventListener('click', e => {
+    playerSelection = button.id
+    computerSelection = getComputerMove()
+    result = playRound(playerSelection, computerSelection)
+    checkWinner(result)
+  })
+})
+
+function checkWinner(result) {
+  if(userScore >= 5) {
+    mainText.textContent = "Congrats, you save us all"
+    playersBtns.classList.toggle('hide');
+    scoreBoard.classList.toggle('hide');
+
+  }else if(computerScore >= 5) {
+    mainText.textContent= "Ohhh no, we are fuck"
+    playersBtns.classList.toggle('hide');
+    scoreBoard.classList.toggle('hide');
+  }
 }
-game()
+
+

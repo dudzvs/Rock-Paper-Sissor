@@ -1,0 +1,134 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background: rgba(21, 20, 49, 0.87);
+  overflow: hidden;
+}
+
+header {
+  text-align: center;;
+  background: grey;
+  padding: 10px;
+  margin-bottom: 22px;
+}
+
+main {
+  height: 85vh;
+  display: grid;
+  place-content: center;
+}
+
+.container p {
+  font-style: italic;
+  font-weight: bold;
+  line-height: 35px;
+  font-size: 22px;
+  text-align: center;
+
+}
+
+a {
+  text-decoration: none;
+  color: #1a1313;
+}
+
+a:hover {
+  color: #ffffff;
+}
+
+
+footer {
+  text-align: center;
+  background: grey;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+
+.container {
+  display: grid;
+  place-items: center;
+  gap: 40px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 100px;
+}
+
+.start, .playAgain {
+  border: none;
+  appearance: none;
+  background: transparent;
+}
+
+
+.start, .playAgain {
+  background-color: rgba(21, 20, 49, 0.521);
+  color: black;
+  padding: 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+
+  transition: all .2s;
+}
+
+.start, .playAgain:hover {
+  background-color: rgba(21, 20, 49, 0.822);
+  scale: 1.1;
+}
+
+.options {
+  position: relative;
+  display: flex;
+  gap: 90px;
+  margin-top: 10px;
+  animation: slide .6s forwards;
+  transform: translateY(-100px);
+}
+
+
+.options svg {
+  cursor: pointer;
+}
+
+.options svg:hover path {
+  fill: #f4f4f4;
+}
+
+.score{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.hide {
+  display: none;
+}
+
+@keyframes slide{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes moveToLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-300);
+
+    border-radius: 50%;
+  }
+}
